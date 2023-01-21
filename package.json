@@ -1,0 +1,36 @@
+{
+  "name": "eas-react-native-firebase-login-link-sample",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Maddemacher/eas-react-native-firebase-login-link-sample.git",
+  "author": "Emil Bergström <emil.bergstrom1@gmail.com>",
+  "license": "MIT",
+  "workspaces": {
+    "packages": [
+      "functions"
+    ],
+    "nohoist": [
+      "**/firebase-admin",
+      "**/firebase-admin/**",
+      "**/firebase-functions",
+      "**/firebase-functions/**"
+    ]
+  },
+  "scripts": {
+    "functions:dev": "cd functions && npm run dev",
+    "dev": "concurrently 'yarn functions:dev' 'firebase emulators:start'",
+    "build": "turbo run build",
+    "ci": "turbo run ci",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "test": "turbo run test",
+    "format": "turbo run format",
+    "lint": "turbo run lint",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "husky": "^8.0.0",
+    "turbo": "^1.6.3"
+  },
+  "private": true
+}

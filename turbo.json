@@ -1,0 +1,22 @@
+{
+	"pipeline": {
+		"build": {
+			"outputs": []
+		},
+		"lint": {
+			"outputs": []
+		},
+		"clean": {
+			"outputs": []
+		},
+		"ci": {
+			"outputs": []
+		},
+		"test": {
+			"outputs": []
+		},
+		"format": {
+			"outputs": []
+		}
+	}
+}
