@@ -5,8 +5,10 @@
 		],
 		"target": {
 			"namespace": "android_app",
-			"package_name": "com.burgstrom.login",
-			"sha256_cert_fingerprints": []
+			"package_name": "com.sample.loginlink",
+			"sha256_cert_fingerprints": [
+				"F6:FB:99:AC:ED:F8:EA:11:B8:8A:FA:5A:23:9D:CC:2F:CC:E1:F3:15:C2:64:06:93:FA:47:D0:5C:AF:58:CB:FE"
+			]
 		}
 	}
 ]

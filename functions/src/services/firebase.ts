@@ -6,17 +6,17 @@ admin.initializeApp();
 
 export const generateLoginLink = async (email: string, verificationPath: string): Promise<string> => {
   const actionCodeSettings = {
-    url: `https://login.web.app${verificationPath}`,
+    url: `https://eas-rn-login-link-sample.web.app${verificationPath}`,
     handleCodeInApp: true,
     iOS: {
-      bundleId: "com.burgstrom.login",
+      bundleId: "com.sample.loginlink",
     },
     android: {
-      packageName: "com.burgstrom.login",
+      packageName: "com.sample.loginlink",
       installApp: true,
       minimumVersion: "12",
     },
-    dynamicLinkDomain: "burgstromlogin.page.link",
+    dynamicLinkDomain: "loginlinksample.page.link",
   };
 
   const auth = getAuth();

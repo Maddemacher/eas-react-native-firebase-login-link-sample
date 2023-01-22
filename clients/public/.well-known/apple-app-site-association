@@ -3,7 +3,7 @@
 		"apps": [],
 		"details": [
 			{
-				"appID": "FAKETEAMID.com.burgstrom.login",
+				"appID": "FAKETEAMID.com.sample.loginlink",
 				"paths": [
 					"NOT /_/*",
 					"/*"

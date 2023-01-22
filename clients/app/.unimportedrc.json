@@ -1,0 +1,14 @@
+{
+	"entry": [
+		"App.tsx"
+	],
+	"extensions": [
+		".tsx",
+		".ts"
+	],
+	"ignorePatterns": [
+		"**/node_modules/**",
+		"**/*.spec.tsx",
+		"**/*.spec.ts"
+	]
+}

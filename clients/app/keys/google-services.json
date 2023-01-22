@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "778915550508",
+    "project_id": "eas-rn-login-link-sample",
+    "storage_bucket": "eas-rn-login-link-sample.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778915550508:android:333d7437819e11b1594889",
+        "android_client_info": {
+          "package_name": "com.sample.loginlink"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778915550508-4962icio6smh18frsst5ojal6q79gfki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKxdFFGV3sifpkMzN9dxgdmVBpMkE5Bxc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778915550508-4962icio6smh18frsst5ojal6q79gfki.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "778915550508-sq789hsnkfnv55j221b162pc76rnk38p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sample.loginlink"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

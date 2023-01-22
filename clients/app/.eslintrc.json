@@ -1,0 +1,29 @@
+{
+	"ignorePatterns": [
+		"tools"
+	],
+	"extends": [
+		"universe/native",
+		"universe/shared/typescript-analysis",
+		"prettier"
+	],
+	"rules": {
+		"import/order": "off",
+		"react/self-closing-comp": "off"
+	},
+	"globals": {
+		"__dirname": true
+	},
+	"overrides": [
+		{
+			"files": [
+				"*.ts",
+				"*.tsx",
+				"*.d.ts"
+			],
+			"parserOptions": {
+				"project": "./tsconfig.json"
+			}
+		}
+	]
+}
