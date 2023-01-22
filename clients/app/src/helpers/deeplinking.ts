@@ -1,31 +1,63 @@
 import { utils } from "@react-native-firebase/app"
-import dynamicLinks from "@react-native-firebase/dynamic-links";
+import dynamicLinks, { FirebaseDynamicLinksTypes } from "@react-native-firebase/dynamic-links";
 import { Linking } from "react-native";
 
-export const getInitialLink = async (): Promise<string | null> => {
+const resolveLink = async (link: string): Promise<string | null> => {
+  try {
+    const resolved = await dynamicLinks().resolveLink(link);
+    return resolved.url;
+  } catch {
+    console.log("Unable to resolve deeplink")
+    return null;
+  }
+}
+
+const getDeeplink = async () => {
   const { isAvailable } = utils().playServicesAvailability;
 
-  if (isAvailable) {
-    const initialLink = await dynamicLinks().getInitialLink();
-
-    if (initialLink) {
-      return initialLink.url;
-    }
+  if (isAvailable === false) {
+    return null;
   }
 
-  const url = await Linking.getInitialURL();
+  const initialLink = await dynamicLinks().getInitialLink();
 
-  return url;
+  if (initialLink === null) {
+    return null;
+  }
+
+  const link = resolveLink(initialLink.url);
+
+  if (link !== null) {
+    return link
+  }
+
+  return initialLink.url;
+}
+
+export const getInitialLink = async (): Promise<string | null> => {
+  const url = getDeeplink();
+
+  if (url) {
+    return url;
+  }
+
+  return await Linking.getInitialURL();
 };
 
-export const onDynamicLink = (listener: (link: string) => void) => {
-  const unsubscribeFirebase = dynamicLinks().onLink(({ url }) => {
-    listener(url);
-  });
+const onLink = (listener: (link: string) => void) => async ({ url }: { url: string }) => {
+  const resolved = await resolveLink(url)
 
-  const linkingSubscription = Linking.addEventListener('url', ({ url }) => {
-    listener(url);
-  });
+  if (resolved !== null) {
+    listener(resolved)
+    return
+  }
+
+  listener(url);
+}
+
+export const onDynamicLink = (listener: (link: string) => void) => {
+  const unsubscribeFirebase = dynamicLinks().onLink(onLink(listener));
+  const linkingSubscription = Linking.addEventListener('url', onLink(listener));
 
   return () => {
     unsubscribeFirebase();

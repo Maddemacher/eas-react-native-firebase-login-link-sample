@@ -1,5 +1,4 @@
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
-import queryString from "query-string";
 
 import config from "../config";
 import { createLogger } from "../logging";

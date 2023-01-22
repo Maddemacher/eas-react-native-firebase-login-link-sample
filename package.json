@@ -25,7 +25,8 @@
     "test": "turbo run test",
     "format": "turbo run format",
     "lint": "turbo run lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "deeplink": "npx uri-scheme open --ios"
   },
   "devDependencies": {
     "concurrently": "^7.6.0",

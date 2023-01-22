@@ -12,7 +12,7 @@ export const linkingConfiguration: LinkingOptions<NotAuthenticatedStackRoutes> =
   prefixes: [
     Linking.createURL("/"),
     "https://loginlinksample.page.link",
-    "https://eas-rn-login-link-sample.web.app"
+    "https://eas-rn-login-link-sample.firebaseapp.com"
   ],
   async getInitialURL() {
     const link = await getInitialLink()

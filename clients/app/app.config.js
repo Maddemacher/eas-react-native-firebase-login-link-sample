@@ -45,12 +45,12 @@ const getCommonConfig = () => {
         googleServicesFile: "./keys/GoogleService-info.plist",
         associatedDomains: [
           "applinks:loginlinksample.page.link",
-          "applinks:eas-rn-login-link-sample.web.app"
+          "applinks:eas-rn-login-link-sample.firebaseapp.com"
         ],
         infoPlist: {
           FirebaseDynamicLinksCustomDomains: [
             "https://loginlinksample.page.link",
-            "https://eas-rn-login-link-sample.web.app",
+            "https://eas-rn-login-link-sample.firebaseapp.com",
           ]
         }
       },
@@ -76,7 +76,7 @@ const getCommonConfig = () => {
             data: [
               {
                 scheme: "https",
-                host: "eas-rn-login-link-sample.web.app"
+                host: "eas-rn-login-link-sample.firebaseapp.com"
               }
             ],
             category: ["BROWSABLE", "DEFAULT"]

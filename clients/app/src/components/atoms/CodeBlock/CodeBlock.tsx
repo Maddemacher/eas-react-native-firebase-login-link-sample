@@ -15,7 +15,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({ children }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.default.greyOne,
+    backgroundColor: colors.grey,
     width: "100%",
     padding: layout.padding.large,
     marginVertical: layout.margin.medium

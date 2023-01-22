@@ -6,7 +6,7 @@ admin.initializeApp();
 
 export const generateLoginLink = async (email: string, verificationPath: string): Promise<string> => {
   const actionCodeSettings = {
-    url: `https://eas-rn-login-link-sample.web.app${verificationPath}`,
+    url: `https://eas-rn-login-link-sample.firebaseapp.com${verificationPath}`,
     handleCodeInApp: true,
     iOS: {
       bundleId: "com.sample.loginlink",

@@ -10,7 +10,7 @@ describe("firebase", () => {
 
       expect(auth.generateSignInWithEmailLink).toHaveBeenCalledTimes(1);
       expect(auth.generateSignInWithEmailLink).toHaveBeenCalledWith("some@email.com", {
-        url: "https://login.web.app/some-path?email=some@email.com",
+        url: "https://login.firebaseapp.com/some-path?email=some@email.com",
         handleCodeInApp: true,
         android: {
           installApp: true,

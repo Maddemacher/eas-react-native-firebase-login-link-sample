@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { NavigationProp } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import Authentication from "../../context/Authentication";
 import { LoginScreenTemplate } from "./LoginScreen.template";
@@ -8,9 +8,7 @@ import { NotAuthenticatedStackRoutes } from "../../navigation/NotAuthenticatedSt
 import config from "../../config";
 import { createLogger } from "../../logging";
 
-interface LoginScreenProps {
-  navigation: NavigationProp<NotAuthenticatedStackRoutes>;
-}
+interface LoginScreenProps extends NativeStackScreenProps<NotAuthenticatedStackRoutes, "Login"> {}
 
 const logger = createLogger("LoginScreen.tsx");
 
