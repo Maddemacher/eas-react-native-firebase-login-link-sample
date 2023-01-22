@@ -3,6 +3,7 @@ import auth from "@react-native-firebase/auth";
 import dynamicLinks from "@react-native-firebase/dynamic-links";
 import queryString from "query-string";
 
+import * as ExpoLinking from "expo-linking";
 import { Linking } from "react-native";
 import { createLogger } from "../logging";
 
@@ -52,7 +53,7 @@ export const getInitialLink = async (): Promise<string | null> => {
       return null;
     }
 
-    return "/login/failed";
+    return ExpoLinking.createURL("/login/failed");
   }
 };
 
@@ -76,7 +77,7 @@ const handleLink =
         return;
       }
 
-      listener("/login/failed");
+      listener(ExpoLinking.createURL("/login/failed"));
     }
   };
 

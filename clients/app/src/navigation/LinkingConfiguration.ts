@@ -10,7 +10,6 @@ const logger = createLogger("LinkingConfiguration.ts");
 
 export const linkingConfiguration: LinkingOptions<NotAuthenticatedStackRoutes> = {
   prefixes: [
-    "/",
     Linking.createURL("/"),
     "https://loginlinksample.page.link",
     "https://eas-rn-login-link-sample.firebaseapp.com"
