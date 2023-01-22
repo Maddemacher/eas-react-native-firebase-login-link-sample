@@ -1,63 +1,88 @@
-import { utils } from "@react-native-firebase/app"
-import dynamicLinks, { FirebaseDynamicLinksTypes } from "@react-native-firebase/dynamic-links";
-import { Linking } from "react-native";
+import { utils } from "@react-native-firebase/app";
+import auth from "@react-native-firebase/auth";
+import dynamicLinks from "@react-native-firebase/dynamic-links";
+import queryString from "query-string";
 
-const resolveLink = async (link: string): Promise<string | null> => {
-  try {
-    const resolved = await dynamicLinks().resolveLink(link);
-    return resolved.url;
-  } catch {
-    console.log("Unable to resolve deeplink")
-    return null;
-  }
-}
+import { Linking } from "react-native";
+import { createLogger } from "../logging";
+
+const logger = createLogger("deeplinking.ts");
+
+const getContinueUrl = (link: string): string => {
+  const parsed = queryString.parseUrl(link);
+  const { continueUrl } = parsed.query;
+
+  return continueUrl as string;
+};
 
 const getDeeplink = async () => {
   const { isAvailable } = utils().playServicesAvailability;
 
-  if (isAvailable === false) {
-    return null;
+  if (isAvailable) {
+    const initialLink = await dynamicLinks().getInitialLink();
+
+    if (initialLink) {
+      return initialLink.url;
+    }
   }
 
-  const initialLink = await dynamicLinks().getInitialLink();
+  const url = await Linking.getInitialURL();
 
-  if (initialLink === null) {
-    return null;
-  }
-
-  const link = resolveLink(initialLink.url);
-
-  if (link !== null) {
-    return link
-  }
-
-  return initialLink.url;
-}
+  return url;
+};
 
 export const getInitialLink = async (): Promise<string | null> => {
-  const url = getDeeplink();
+  const url = await getDeeplink();
 
-  if (url) {
+  logger.info("getInitialLink", { url });
+
+  if (url === null) {
+    return null;
+  }
+
+  if (auth().isSignInWithEmailLink(url) === false) {
     return url;
   }
 
-  return await Linking.getInitialURL();
+  try {
+    await auth().signInWithEmailLink("emil.bergstrom1@gmail.com", url);
+    return getContinueUrl(url);
+  } catch {
+    if (auth().currentUser !== null) {
+      return null;
+    }
+
+    return "/login/failed";
+  }
 };
 
-const onLink = (listener: (link: string) => void) => async ({ url }: { url: string }) => {
-  const resolved = await resolveLink(url)
+const handleLink =
+  (listener: (link: string) => void) =>
+  async ({ url }: { url: string }) => {
+    logger.info("handleLink", { url });
 
-  if (resolved !== null) {
-    listener(resolved)
-    return
-  }
+    if (auth().isSignInWithEmailLink(url) === false) {
+      listener(url);
+      return;
+    }
 
-  listener(url);
-}
+    try {
+      await auth().signInWithEmailLink("emil.bergstrom1@gmail.com", url);
+      const continueUrl = getContinueUrl(url);
+      listener(continueUrl);
+      return;
+    } catch {
+      if (auth().currentUser !== null) {
+        return;
+      }
+
+      listener("/login/failed");
+    }
+  };
 
 export const onDynamicLink = (listener: (link: string) => void) => {
-  const unsubscribeFirebase = dynamicLinks().onLink(onLink(listener));
-  const linkingSubscription = Linking.addEventListener('url', onLink(listener));
+  const unsubscribeFirebase = dynamicLinks().onLink(handleLink(listener));
+  const linkingSubscription = Linking.addEventListener("url", handleLink(listener));
 
   return () => {
     unsubscribeFirebase();

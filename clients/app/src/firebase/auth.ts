@@ -12,14 +12,15 @@ if (["prod", "stage", "test"].includes(config.environment) === false) {
   auth().useEmulator(`http://${config.defaults.hostAddress}:9099`);
 }
 
-export const verifyLoginLink = async (link: string, email: string) => {
+export const tryLoginWithLoginLink = async (link: string, email: string): Promise<boolean> => {
   if (auth().isSignInWithEmailLink(link) === false) {
     logger.info(`Trying to verify ${link} but is not a login link`);
-    return;
+    return false;
   }
 
   try {
     await auth().signInWithEmailLink(email, link);
+    return true;
   } catch (error) {
     logger.error(`Failed to login with link: ${link}`, error);
     throw error;

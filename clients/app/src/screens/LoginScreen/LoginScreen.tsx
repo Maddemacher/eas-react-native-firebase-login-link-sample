@@ -8,7 +8,7 @@ import { NotAuthenticatedStackRoutes } from "../../navigation/NotAuthenticatedSt
 import config from "../../config";
 import { createLogger } from "../../logging";
 
-interface LoginScreenProps extends NativeStackScreenProps<NotAuthenticatedStackRoutes, "Login"> {}
+interface LoginScreenProps extends NativeStackScreenProps<NotAuthenticatedStackRoutes, "Start"> {}
 
 const logger = createLogger("LoginScreen.tsx");
 

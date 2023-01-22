@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { Header } from "../../components/atoms/Header";
 import { ScreenContainer } from "../../components/atoms/ScreenContainer";
 import { Text } from "../../components/atoms/Text";
-import { colors, layout } from "../../constants";
+import { layout } from "../../constants";
 import { Button } from "../../components/atoms/Button";
 
 interface UnhandledErrorScreenProps {

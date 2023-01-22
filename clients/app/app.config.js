@@ -43,14 +43,11 @@ const getCommonConfig = () => {
           usesNonExemptEncryption: false
         },
         googleServicesFile: "./keys/GoogleService-info.plist",
-        associatedDomains: [
-          "applinks:loginlinksample.page.link",
-          "applinks:eas-rn-login-link-sample.firebaseapp.com"
-        ],
+        associatedDomains: ["applinks:loginlinksample.page.link", "applinks:eas-rn-login-link-sample.firebaseapp.com"],
         infoPlist: {
           FirebaseDynamicLinksCustomDomains: [
             "https://loginlinksample.page.link",
-            "https://eas-rn-login-link-sample.firebaseapp.com",
+            "https://eas-rn-login-link-sample.firebaseapp.com"
           ]
         }
       },

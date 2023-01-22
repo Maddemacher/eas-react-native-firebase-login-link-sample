@@ -8,7 +8,7 @@ interface NotFoundScreenProps
 
 export const NotFoundScreen: React.FC<NotFoundScreenProps> = ({ navigation }) => {
   const handleGoHomePressed = () => {
-    navigation.popToTop();
+    navigation.navigate("Start");
   };
 
   return <NotFoundScreenTemplate onGoHomePressed={handleGoHomePressed} />;

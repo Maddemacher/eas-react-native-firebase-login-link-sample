@@ -1,4 +1,8 @@
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { Button } from "../../components/atoms/Button";
+import { Header } from "../../components/atoms/Header";
+import { ScreenContainer } from "../../components/atoms/ScreenContainer";
+import { Text } from "../../components/atoms/Text";
 
 interface NotFoundScreenTemplateProps {
   children?: React.ReactNode;
@@ -7,32 +11,26 @@ interface NotFoundScreenTemplateProps {
 
 export const NotFoundScreenTemplate: React.FC<NotFoundScreenTemplateProps> = ({ onGoHomePressed }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>This screen doesn't exist.</Text>
-      <TouchableOpacity onPress={onGoHomePressed} style={styles.link}>
-        <Text style={styles.linkText}>Go to home screen!</Text>
-      </TouchableOpacity>
-    </View>
+    <ScreenContainer style={styles.container}>
+      <View style={styles.content}>
+        <Header h1>404</Header>
+        <Text>This screen doesn't exist.</Text>
+      </View>
+      <Button label="Go home" onPress={onGoHomePressed} />
+    </ScreenContainer>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1
+  },
+  content: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
-    padding: 20
+    justifyContent: "center"
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold"
-  },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15
-  },
-  linkText: {
-    fontSize: 14,
-    color: "#2e78b7"
+  text: {
+    textAlign: "center"
   }
 });

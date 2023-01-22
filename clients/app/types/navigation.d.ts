@@ -3,6 +3,6 @@ import { NotAuthenticatedStackRoutes } from "../src/navigation/NotAuthenticatedS
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends NotAuthenticatedStackRoutes, AuthenticatedStackRoutes { }
+    interface RootParamList extends NotAuthenticatedStackRoutes, AuthenticatedStackRoutes {}
   }
 }
