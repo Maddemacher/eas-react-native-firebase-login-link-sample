@@ -1,15 +1,14 @@
-import { NavigationProp } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AuthenticatedStackRoutes } from "../../navigation/AuthenticatedStack";
 import { NotAuthenticatedStackRoutes } from "../../navigation/NotAuthenticatedStack";
 import { NotFoundScreenTemplate } from "./NotFoundScreen.template";
 
-interface NotFoundScreenProps {
-  navigation: NavigationProp<NotAuthenticatedStackRoutes | AuthenticatedStackRoutes>;
-}
+interface NotFoundScreenProps
+  extends NativeStackScreenProps<NotAuthenticatedStackRoutes | AuthenticatedStackRoutes, "NotFound"> {}
 
 export const NotFoundScreen: React.FC<NotFoundScreenProps> = ({ navigation }) => {
   const handleGoHomePressed = () => {
-    navigation.navigate("Start");
+    navigation.popToTop();
   };
 
   return <NotFoundScreenTemplate onGoHomePressed={handleGoHomePressed} />;

@@ -1,6 +1,7 @@
 import axios from "axios";
 import constants from "expo-constants";
 import { createLogger } from "../logging";
+import { linkingConfiguration } from "../navigation/LinkingConfiguration";
 
 const endpoint = constants.manifest?.extra?.endpoint;
 
@@ -17,7 +18,7 @@ const client = axios.create({ baseURL: endpoint });
 export const requestLoginLink = async (email: string) => {
   const response = await client.post("/api/authentication/login-link", {
     email,
-    redirect: `/verify-login-link?email=${email}`
+    redirect: `${linkingConfiguration.config?.screens.VerifyLoginLink}?email=${email}`
   });
 
   if (response.status !== 201) {

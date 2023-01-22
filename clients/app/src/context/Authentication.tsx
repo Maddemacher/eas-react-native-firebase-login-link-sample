@@ -11,7 +11,7 @@ interface AuthenticationProviderProps {
 interface AuthenticationContextProps {
   authenticated?: boolean;
   requestLoginLink: (email: string) => Promise<void>;
-  verifyLoginLink: (link: string) => Promise<void>;
+  verifyLoginLink: (link: string, email: string) => Promise<void>;
   signOut: () => Promise<void>;
   setAuthenticated: Dispatch<any>;
 }
@@ -42,14 +42,16 @@ export const AuthenticationProvider: React.FC<AuthenticationProviderProps> = ({ 
     await firebaseClient.requestLoginLink(email);
   };
 
-  const verifyLoginLink = async (link: string) => {
+  const verifyLoginLink = async (link: string, email: string) => {
     logger.info("Verifying login link");
 
     try {
-      await firebaseAuth.verifyLoginLink(link);
+      await firebaseAuth.verifyLoginLink(link, email);
     } catch (e) {
       logger.error("failed login link verification", e);
       setAuthenticated(false);
+
+      throw e;
     }
   };
 

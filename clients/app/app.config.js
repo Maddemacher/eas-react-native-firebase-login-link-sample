@@ -89,7 +89,8 @@ const getCommonConfig = () => {
       extra: {
         eas: {
           projectId: "29fa229c-24db-43f7-8ad8-aa54811a5928"
-        }
+        },
+        defaults
       }
     }
   };
@@ -122,7 +123,7 @@ const getConfig = (appEnv) => {
           ...common.expo.extra,
           logLevel: "debug",
           environment: "dev",
-          endpoint: `http://${defaults.hostAddress}:5001/rn-login-link-sample/europe-west1/main`
+          endpoint: `http://${defaults.hostAddress}:5001/eas-rn-login-link-sample/europe-west1/main`
         }
       }
     };

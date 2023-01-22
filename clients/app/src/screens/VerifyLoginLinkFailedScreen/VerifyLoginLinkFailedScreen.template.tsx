@@ -5,20 +5,21 @@ import { Text } from "../../components/atoms/Text";
 import { colors, layout } from "../../constants";
 import { Button } from "../../components/atoms/Button";
 
-interface UnhandledErrorScreenProps {
-  children?: React.ReactNode;
-  onReloadPressed: () => void;
+interface VerifyLoginLinkFailedScreenTemplateProps {
+  onGoBackPressed: () => void;
 }
 
-export const UnhandledErrorScreenTemplate: React.FC<UnhandledErrorScreenProps> = ({ onReloadPressed }) => {
+export const VerifyLoginLinkFailedScreenTemplate: React.FC<VerifyLoginLinkFailedScreenTemplateProps> = ({
+  onGoBackPressed
+}) => {
   return (
     <ScreenContainer style={styles.container}>
       <Header h1 style={styles.text}>
-        Ops, något gick riktigt åt fanders!
+        Oh noes!
       </Header>
-      <Text style={styles.text}>Du måste tyvärr starta om appen.</Text>
+      <Text style={styles.text}>We could not verify yoru login link.</Text>
 
-      <Button style={styles.reloadButton} label="Ladda om" onPress={onReloadPressed} />
+      <Button style={styles.goBackButton} label="Go back" onPress={onGoBackPressed} />
     </ScreenContainer>
   );
 };
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center"
   },
-  reloadButton: {
+  goBackButton: {
     marginTop: layout.margin.large,
     width: "100%"
   }

@@ -1,5 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { AuthenticationContext } from "../../context/Authentication";
 import { createLogger } from "../../logging";
 import { NotAuthenticatedStackRoutes } from "../../navigation/NotAuthenticatedStack";
 
@@ -9,12 +10,29 @@ const logger = createLogger("VerifyLoginLinkScreen.tsx");
 
 interface VerifyLoginLinkScreenProps extends NativeStackScreenProps<NotAuthenticatedStackRoutes, "VerifyLoginLink"> {}
 
-export const VerifyLoginLinkScreen: React.FC<VerifyLoginLinkScreenProps> = ({ route }) => {
+export const VerifyLoginLinkScreen: React.FC<VerifyLoginLinkScreenProps> = ({ route, navigation }) => {
+  const { verifyLoginLink } = useContext(AuthenticationContext);
+
   const email = route.params.email;
+  const path = route.path;
 
   useEffect(() => {
-    logger.info(JSON.stringify({ message: "Verify login link", email }, null, 4));
-  }, [email]);
+    const doLoginLinkVerification = async () => {
+      logger.info("verifyLoginLink hook triggered", { path, email });
 
-  return <VerifyLoginLinkScreenTemplate></VerifyLoginLinkScreenTemplate>;
+      if (path === undefined || email === undefined) {
+        return;
+      }
+
+      try {
+        await verifyLoginLink(path, email);
+      } catch {
+        navigation.replace("VerifyLoginLinkFailed");
+      }
+    };
+
+    doLoginLinkVerification();
+  }, [path, email]);
+
+  return <VerifyLoginLinkScreenTemplate />;
 };
