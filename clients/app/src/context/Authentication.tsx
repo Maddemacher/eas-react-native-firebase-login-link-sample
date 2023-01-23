@@ -9,16 +9,12 @@ interface AuthenticationProviderProps {
 
 interface AuthenticationContextProps {
   authenticated?: boolean;
-  requestLoginLink: (email: string) => Promise<void>;
   signOut: () => Promise<void>;
-  setAuthenticated: Dispatch<any>;
 }
 
 const initialState = {
   authenticated: undefined,
-  requestLoginLink: async () => {},
-  signOut: async () => {},
-  setAuthenticated: () => {}
+  signOut: async () => {}
 };
 
 const logger = createLogger("Authentication.tsx");
@@ -27,17 +23,6 @@ export const AuthenticationContext = createContext<AuthenticationContextProps>(i
 
 export const AuthenticationProvider: React.FC<AuthenticationProviderProps> = ({ children, ...props }) => {
   const [authenticated, setAuthenticated] = useState<boolean | undefined>(undefined);
-
-  const requestLoginLink = async (email: string) => {
-    logger.debug("requesting", email);
-
-    if (!email) {
-      logger.debug("no email, aborting");
-      return;
-    }
-
-    await auth.requestLoginLink(email);
-  };
 
   const signOut = async () => {
     await auth.signOut();
@@ -57,9 +42,7 @@ export const AuthenticationProvider: React.FC<AuthenticationProviderProps> = ({ 
     <AuthenticationContext.Provider
       value={{
         authenticated,
-        requestLoginLink,
-        signOut,
-        setAuthenticated
+        signOut
       }}
       {...props}
     >

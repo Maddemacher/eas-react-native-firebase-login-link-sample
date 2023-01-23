@@ -5,13 +5,13 @@ import { NotAuthenticatedStackRoutes } from "./NotAuthenticatedStack";
 import { getInitialLink, onDynamicLink } from "../helpers/deeplinking";
 
 import { createLogger } from "../logging";
+import { AuthenticatedStackRoutes } from "./AuthenticatedStack";
 
 const logger = createLogger("LinkingConfiguration.ts");
 
-export const linkingConfiguration: LinkingOptions<NotAuthenticatedStackRoutes> = {
+export const linkingConfiguration: LinkingOptions<NotAuthenticatedStackRoutes & AuthenticatedStackRoutes> = {
   prefixes: [
     Linking.createURL("/"),
-    "https://loginlinksample.page.link",
     "https://eas-rn-login-link-sample.firebaseapp.com"
   ],
   async getInitialURL() {
@@ -32,7 +32,7 @@ export const linkingConfiguration: LinkingOptions<NotAuthenticatedStackRoutes> =
 
   config: {
     screens: {
-      Start: "/login",
+      Start: "/",
       LoginLinkFailed: "/login/failed",
       NotFound: "*"
     }

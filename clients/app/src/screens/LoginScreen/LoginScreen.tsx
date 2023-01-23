@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import Authentication from "../../context/Authentication";
+import * as auth from "../../firebase/auth";
 import { LoginScreenTemplate } from "./LoginScreen.template";
 import { NotAuthenticatedStackRoutes } from "../../navigation/NotAuthenticatedStack";
 
@@ -13,7 +13,6 @@ interface LoginScreenProps extends NativeStackScreenProps<NotAuthenticatedStackR
 const logger = createLogger("LoginScreen.tsx");
 
 export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
-  const { requestLoginLink } = useContext(Authentication.AuthenticationContext);
   const [loading, setLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>(config.defaults.email);
 
@@ -30,7 +29,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     }
     try {
       setLoading(true);
-      await requestLoginLink(email);
+      await auth.requestLoginLink(email);
     } finally {
       setLoading(false);
       navigation.navigate("LoginLinkSent");

@@ -6,19 +6,28 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "EAS_LOCAL_BUILD_ARTIFACTS_DIR": "dist"
+      }
     },
     "development-simulator": {
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
         "simulator": true
+      },
+      "env": {
+        "EAS_LOCAL_BUILD_ARTIFACTS_DIR": "dist"
       }
     },
     "preview": {
       "distribution": "internal",
       "ios": {
         "simulator": true
+      },
+      "env": {
+        "EAS_LOCAL_BUILD_ARTIFACTS_DIR": "dist"
       }
     },
     "production": {}

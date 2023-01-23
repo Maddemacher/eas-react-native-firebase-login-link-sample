@@ -13,8 +13,6 @@ export const generateLoginLink = async (email: string, redirectTo: string): Prom
     },
     android: {
       packageName: "com.sample.loginlink",
-      installApp: true,
-      minimumVersion: "12",
     },
     dynamicLinkDomain: "loginlinksample.page.link",
   };

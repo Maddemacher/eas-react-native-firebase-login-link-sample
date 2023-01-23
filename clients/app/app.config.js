@@ -43,10 +43,10 @@ const getCommonConfig = () => {
           usesNonExemptEncryption: false
         },
         googleServicesFile: "./keys/GoogleService-info.plist",
-        associatedDomains: ["applinks:loginlinksample.page.link", "applinks:eas-rn-login-link-sample.firebaseapp.com"],
+        associatedDomains: [
+          "applinks:eas-rn-login-link-sample.firebaseapp.com"],
         infoPlist: {
           FirebaseDynamicLinksCustomDomains: [
-            "https://loginlinksample.page.link",
             "https://eas-rn-login-link-sample.firebaseapp.com"
           ]
         }
@@ -56,17 +56,6 @@ const getCommonConfig = () => {
         package: bundleId,
         googleServicesFile: "./keys/google-services.json",
         intentFilters: [
-          {
-            action: "VIEW",
-            autoVerify: true,
-            data: [
-              {
-                scheme: "https",
-                host: "loginlinksample.page.link"
-              }
-            ],
-            category: ["BROWSABLE", "DEFAULT"]
-          },
           {
             action: "VIEW",
             autoVerify: true,

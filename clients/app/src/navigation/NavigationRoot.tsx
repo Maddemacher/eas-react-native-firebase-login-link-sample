@@ -8,9 +8,7 @@ import { NotAuthenticatedStack } from "./NotAuthenticatedStack";
 import { linkingConfiguration } from "./LinkingConfiguration";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-interface NavigationProps {}
-
-export const NavigationRoot: React.FC<NavigationProps> = () => {
+export const NavigationRoot = () => {
   const { authenticated } = useContext(AuthenticationContext);
 
   useEffect(() => {
