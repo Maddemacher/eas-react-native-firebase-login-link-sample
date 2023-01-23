@@ -17,7 +17,7 @@ const client = axios.create({ baseURL: endpoint });
 export const requestLoginLink = async (email: string) => {
   const response = await client.post("/api/authentication/login-link", {
     email,
-    redirect: "/home"
+    redirectTo: "/home"
   });
 
   if (response.status !== 201) {

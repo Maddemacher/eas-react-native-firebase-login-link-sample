@@ -9,21 +9,21 @@ const router = express.Router();
 
 const loginLinkBodySchema = joi.object({
   email: joi.string().email().required(),
-  redirect: joi.string().required(),
+  redirectTo: joi.string().required(),
 });
 
 interface PostLoginLinkBody {
   email: string;
-  redirect: string;
+  redirectTo: string;
 }
 
 router.post(
   "/login-link",
   validate.body(loginLinkBodySchema),
   asyncHandler(async (request: express.Request<unknown, unknown, PostLoginLinkBody, unknown>, response) => {
-    const { email, redirect } = request.body;
+    const { email, redirectTo } = request.body;
 
-    await sendLoginLinkEmail(email, redirect);
+    await sendLoginLinkEmail(email, redirectTo);
 
     response.sendStatus(201);
   })

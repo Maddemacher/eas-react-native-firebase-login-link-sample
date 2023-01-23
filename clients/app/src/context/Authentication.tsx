@@ -1,7 +1,6 @@
 import React, { createContext, Dispatch, useEffect, useState } from "react";
 
-import * as firebaseAuth from "../firebase/auth";
-import * as firebaseClient from "../clients/firebase";
+import * as auth from "../firebase/auth";
 import { createLogger } from "../logging";
 
 interface AuthenticationProviderProps {
@@ -37,16 +36,16 @@ export const AuthenticationProvider: React.FC<AuthenticationProviderProps> = ({ 
       return;
     }
 
-    await firebaseClient.requestLoginLink(email);
+    await auth.requestLoginLink(email);
   };
 
   const signOut = async () => {
-    await firebaseAuth.signOut();
+    await auth.signOut();
     setAuthenticated(false);
   };
 
   useEffect(() => {
-    const subscription = firebaseAuth.setupAuthStateListener((user) => {
+    const subscription = auth.setupAuthStateListener((user) => {
       logger.debug("User received", { user });
       setAuthenticated(user !== null);
     });

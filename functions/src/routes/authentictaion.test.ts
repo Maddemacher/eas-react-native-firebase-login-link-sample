@@ -24,7 +24,7 @@ describe("authentication", () => {
         .post("/login-link")
         .send({
           email: "some@email.com",
-          redirect: "/some-path",
+          redirectTo: "/some-path",
         })
         .expect(201);
 
@@ -36,7 +36,7 @@ describe("authentication", () => {
       await supertest(app)
         .post("/login-link")
         .send({
-          redirect: "/some-path",
+          redirectTo: "/some-path",
         })
         .expect(400);
 

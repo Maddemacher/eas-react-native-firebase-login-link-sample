@@ -1,6 +1,10 @@
 {
 	"ignorePatterns": [
-		"tools"
+		"tools",
+		"node_modules",
+		"dist",
+		".expo",
+		".secure_files"
 	],
 	"extends": [
 		"universe/native",

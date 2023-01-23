@@ -15,8 +15,8 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export const sendLoginLinkEmail = async (email: string, verificationPath: string) => {
-  const link = await generateLoginLink(email, verificationPath);
+export const sendLoginLinkEmail = async (email: string, redirectTo: string) => {
+  const link = await generateLoginLink(email, redirectTo);
   const rendered = renderLoginLink(link);
 
   if (config.environment === "dev") {

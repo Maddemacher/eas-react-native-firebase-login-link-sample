@@ -1,31 +1,67 @@
+import asyncStorage from "@react-native-async-storage/async-storage"
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
+import queryString from "query-string";
+import { createURL } from "expo-linking";
 
+import * as client from "../clients/firebase"
 import config from "../config";
 import { createLogger } from "../logging";
 
+
 const logger = createLogger("auth.ts");
 
+const LOGIN_EMAIL_KEY = "@email";
+
 type Unsubscribe = () => void;
+
+const getContinueUrl = (link: string): string => {
+  const parsed = queryString.parseUrl(link);
+  const { continueUrl } = parsed.query;
+
+  return continueUrl as string;
+};
 
 if (["prod", "stage", "test"].includes(config.environment) === false) {
   logger.debug("Connecting authentication to authentication emulator on https://localhost:9099");
   auth().useEmulator(`http://${config.defaults.hostAddress}:9099`);
 }
 
-export const tryLoginWithLoginLink = async (link: string, email: string): Promise<boolean> => {
+export const requestLoginLink = async (email: string) => {
+  const response = await client.requestLoginLink(email)
+
+  if (response.status === 201) {
+    await asyncStorage.setItem(LOGIN_EMAIL_KEY, email)
+  }
+}
+
+export const handlePotentialLoginLink = async (link: string) => {
   if (auth().isSignInWithEmailLink(link) === false) {
-    logger.info(`Trying to verify ${link} but is not a login link`);
-    return false;
+    logger.info("Not a login link");
+    return link;
+  }
+
+  const email = await asyncStorage.getItem(LOGIN_EMAIL_KEY);
+
+  if (email === null) {
+    return link
   }
 
   try {
+    logger.info("Login link", {
+      link,
+      email
+    });
+
     await auth().signInWithEmailLink(email, link);
-    return true;
-  } catch (error) {
-    logger.error(`Failed to login with link: ${link}`, error);
-    throw error;
+    return getContinueUrl(link);
+  } catch {
+    if (auth().currentUser !== null) {
+      return null;
+    }
+
+    return createURL("/login/failed");
   }
-};
+}
 
 export const signOut = async () => {
   await auth().signOut();
