@@ -1,6 +1,6 @@
 import defaults from "./defaults.json";
 
-const buildNumber = "1";
+const buildNumber = "3";
 const bundleId = "com.sample.loginlink";
 
 const getCommonConfig = () => {
@@ -52,7 +52,7 @@ const getCommonConfig = () => {
         }
       },
       android: {
-        versionCode: 1,
+        versionCode: parseInt(buildNumber, 10),
         package: bundleId,
         googleServicesFile: "./keys/google-services.json",
         intentFilters: [
@@ -76,7 +76,10 @@ const getCommonConfig = () => {
         eas: {
           projectId: "29fa229c-24db-43f7-8ad8-aa54811a5928"
         },
-        defaults
+        defaults,
+        logLevel: "debug",
+        environment: "prod",
+        endpoint: "https://europe-west1-eas-rn-login-link-sample.cloudfunctions.net/main"
       }
     }
   };
